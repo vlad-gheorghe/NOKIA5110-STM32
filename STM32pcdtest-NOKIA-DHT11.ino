@@ -35,76 +35,15 @@ All text above, and the splash screen must be included in any redistribution
 DHT_Unified dht(DHTPIN, DHTTYPE);
 
 uint32_t delayMS;
-// Software SPI (slower updates, more flexible pin options):
-// pin 7 - Serial clock out (SCLK)
-// pin 6 - Serial data out (DIN)
-// pin 5 - Data/Command select (D/C)
-// pin 4 - LCD chip select (CS)
-// pin 3 - LCD reset (RST)
-//Adafruit_PCD8544 display = Adafruit_PCD8544(7, 6, 5, 4, 3);
 
-// Hardware SPI (faster, but must use certain hardware pins):
-// SCK is LCD serial clock (SCLK) - this is pin 13 on Arduino Uno
-// MOSI is LCD DIN - this is pin 11 on an Arduino Uno
-// pin 5 - Data/Command select (D/C)
-// pin 15 - LCD chip select (CS)
-// pin 4 - LCD reset (RST)
-//Adafruit_PCD8544 display = Adafruit_PCD8544(PB13,PB12,PB3,PB5,PB4);
-// Note with hardware SPI MISO and SS pins aren't used but will still be read
-// and written to during SPI transfer.  Be careful sharing these pins!
+// pin PA5 - Serial clock out (SCLK)
+// pin PA7 - Serial data out (DIN)
+// pin PB7 - Data/Command select (D/C)
+// pin PB8 - LCD chip select (CS)
+// pin PB9 - LCD reset (RST)
 
-/******************************************************************
-ESP8266 with PCD8544 display
 
-== Parts ==
 
-* Adafruit Huzzah ESP8266 https://www.adafruit.com/products/2471
-
-* Adafruit PCD8544/5110 display https://www.adafruit.com/product/338
-
-* Adafruit USB to TTL serial cable https://www.adafruit.com/products/954
-
-== Connection ==
-
-USB TTL     Huzzah      Nokia 5110  Description
-            ESP8266     PCD8544
-
-            GND         GND         Ground
-            3V          VCC         3.3V from Huzzah to display
-            14          CLK         Output from ESP SPI clock
-            13          DIN         Output from ESP SPI MOSI to display data input
-            12          D/C         Output from display data/command to ESP
-            #5          CS          Output from ESP to chip select/enable display
-            #4          RST         Output from ESP to reset display
-                        LED         3.3V to turn backlight on
-
-GND (blk)   GND                     Ground
-5V  (red)   V+                      5V power from PC or charger
-TX  (green) RX                      Serial data from IDE to ESP
-RX  (white) TX                      Serial data to ESP from IDE
-******************************************************************/
-
-// ESP8266 Software SPI (slower updates, more flexible pin options):
-// pin 14 - Serial clock out (SCLK)
-// pin 13 - Serial data out (DIN)
-// pin 12 - Data/Command select (D/C)
-// pin 5 - LCD chip select (CS)
-// pin 4 - LCD reset (RST)
-//Adafruit_PCD8544 display = Adafruit_PCD8544(14, 13, 12, 5, 4);
-
-// If using an ESP8266, use this option. Comment out the other options.
-// ESP8266 Hardware SPI (faster, but must use certain hardware pins):
-// SCK is LCD serial clock (SCLK) - this is pin 14 on Huzzah ESP8266
-// MOSI is LCD DIN - this is pin 13 on an Huzzah ESP8266
-// pin 12 - Data/Command select (D/C) on an Huzzah ESP8266
-// pin 5 - LCD chip select (CS)
-// pin 4 - LCD reset (RST)
-//Adafruit_PCD8544 display = Adafruit_PCD8544(12, 5, 4);
-
-// ESP32 hardware-SPI
-// pin 17 - Data/Command select (D/C)
-// pin 5 - LCD chip select (CS)
-// pin 16 - LCD reset (RST)
 Adafruit_PCD8544 display = Adafruit_PCD8544(PB7, PB8, PB9);
 
 
@@ -154,7 +93,7 @@ void loop() {
   display.println(event.temperature);
   display.setCursor(70,20);display.print("C");
   display.drawCircle(65,12,2,BLACK);
- float h= dht.humidity().getEvent(&event);
+ //float h= dht.humidity().getEvent(&event);
   display.setCursor(1,45);display.println(event.relative_humidity);
   display.setCursor(65,45);display.print("%");
  display.setFont();
